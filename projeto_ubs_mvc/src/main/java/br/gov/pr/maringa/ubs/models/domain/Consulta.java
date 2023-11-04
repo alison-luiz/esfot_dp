@@ -1,10 +1,9 @@
 package br.gov.pr.maringa.ubs.models.domain;
 
+import br.gov.pr.maringa.ubs.models.domain.users.Medico;
+import br.gov.pr.maringa.ubs.models.domain.users.Usuario;
 import br.gov.pr.maringa.ubs.models.enums.TipoDeConsulta;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +21,14 @@ public class Consulta {
     private Integer horarioMarcado;
 
     private TipoDeConsulta tipoDeConsulta;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Medico medico;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Usuario usuario;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Ubs ubs;
 
 }

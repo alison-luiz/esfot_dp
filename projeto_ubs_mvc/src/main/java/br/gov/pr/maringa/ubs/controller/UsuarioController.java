@@ -4,6 +4,7 @@ import br.gov.pr.maringa.ubs.models.domain.Endereco;
 import br.gov.pr.maringa.ubs.models.domain.Pessoa;
 import br.gov.pr.maringa.ubs.models.domain.users.Medico;
 import br.gov.pr.maringa.ubs.models.domain.users.Usuario;
+import br.gov.pr.maringa.ubs.models.enums.TipoDeEndereco;
 import br.gov.pr.maringa.ubs.models.repository.EnderecoRepository;
 import br.gov.pr.maringa.ubs.models.repository.MedicoRepository;
 import br.gov.pr.maringa.ubs.models.repository.PessoaRepository;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ubs")
-public class CadastroUsuarioController {
+@RequestMapping("/cadastro")
+public class UsuarioController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
@@ -39,14 +40,16 @@ public class CadastroUsuarioController {
         return medicoRepository.findAll();
     }
 
-    @PostMapping("/cadastrar-usuario")
+    @PostMapping("/usuario")
     public Usuario cadastrarUsuario(@RequestBody Usuario usuario) {
         if (usuario.getPessoa() != null) {
             Pessoa pessoa = usuario.getPessoa();
             if (pessoa.getEndereco() != null && !pessoa.getEndereco().isEmpty()) {
                 for (Endereco endereco : pessoa.getEndereco()) {
-                    if (endereco.getId() == null) {
+                    if (endereco.getId() == null && endereco.getTipoDeEndereco() == TipoDeEndereco.USUARIO) {
                         enderecoRepository.save(endereco);
+                    } else {
+                        throw new RuntimeException("Endereço de UBS não pode ser cadastrado como endereço de usuário");
                     }
                 }
             }
@@ -56,7 +59,7 @@ public class CadastroUsuarioController {
         return usuarioRepository.save(usuario);
     }
 
-    @PostMapping("/cadastrar-medico")
+    @PostMapping("/medico")
     public Medico cadastrarMedico(@RequestBody Medico medico) {
         if (medico.getPessoa() != null) {
             Pessoa pessoa = medico.getPessoa();
