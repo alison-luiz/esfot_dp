@@ -1,0 +1,20 @@
+package br.gov.pr.maringa.ubs.models.enums;
+
+public enum TipoDeMedico {
+
+    CARDIOLOGISTA,
+    CLINICO_GERAL,
+    DERMATOLOGISTA,
+    ENDOCRINOLOGISTA,
+    GASTROENTEROLOGISTA,
+    GINECOLOGISTA,
+    NEUROLOGISTA,
+    OFTALMOLOGISTA,
+    ORTOPEDISTA,
+    OTORRINOLARINGOLOGISTA,
+    PEDIATRA,
+    PSIQUIATRA,
+    UROLOGISTA;
+
+
+}

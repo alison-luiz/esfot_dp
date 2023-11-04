@@ -1,16 +1,18 @@
 package br.gov.pr.maringa.ubs.models.domain;
 
 import jakarta.persistence.*;
+import liquibase.license.LicenseService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Pessoa {
+public class Ubs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,23 +20,13 @@ public class Pessoa {
 
     private String nome;
 
-    private String sobrenome;
-
-    private String cpf;
-
     private String telefone;
 
     private String email;
 
-    private String dataNascimento;
+    private Integer horarioFuncionamentoInicio;
 
-    private String sexo;
-
-    private String estadoCivil;
-
-    private String nacionalidade;
-
-    private String naturalidade;
+    private Integer horarioFuncionamentoFim;
 
     @OneToMany
     private List<Endereco> endereco;
